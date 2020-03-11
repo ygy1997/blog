@@ -1,0 +1,113 @@
+<div>
+    <div id="nav-header" class="navbar" style="width:100%;position:fixed;z-index: 99999;">
+        <ul class="nav ">
+            <!--获取一级分类信息-->
+            {% get_bigcategory_list as bigcategory %}
+            <li id="menu-item-44"
+                class="menu-item menu-item-type-custom menu-item-object-custom {% if not category %}current-menu-item current_page_item{% endif %} menu-item-home menu-item-44">
+                <a
+                        href="/">首页</a></li>
+
+            <!--导航条一级分类渲染-->
+            {% for big in bigcategory %}
+
+                <!--获取二级分类信息-->
+                {% get_category_list big.id as cate %}
+
+                <!--如果一级分类下有二级分类则进行渲染-->
+                {% if cate %}
+                    <li id="menu-item-14"
+                        class="menu-item menu-item-type-taxonomy menu-item-object-category {% if category == big.slug %}current-menu-item {% endif %} menu-item-has-children menu-item-14">
+                        <a href="{% url 'blog:bigcategory' big.slug  %}">{{ big.name }}</a>
+                        <ul class="sub-menu">
+                            <!--导航条二级分类渲染-->
+                            {% for c in cate %}
+                                <li id="menu-item-19"
+                                    class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-19">
+                                    <a href="{% url 'blog:category'  big.slug   c.slug %}">{{ c.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+                    <!--无二级分类的一级分类渲染-->
+                {% else %}
+                    <li id="menu-item-851"
+                        class="menu-item menu-item-type-post_type menu-item-object-page {% if category == big.slug %}current-menu-item {% endif %} menu-item-851">
+                        <a href="{% url 'blog:bigcategory' big.slug  %}">{{ big.name }}</a></li>
+                {% endif %}
+            {% endfor %}
+            <!--导航条结束-->
+
+            <!--搜索框-->
+            <li style="float:right;">
+                <div class="toggle-search"><i class="fa fa-search"></i></div>
+                <div class="search-expand" style="display: none;">
+                    <div class="search-expand-inner">
+                        <form class="nav-item navbar-form mr-2 py-md-2" role="search" method="get" id="searchform"
+                              action="{% url 'blog:search' %}">
+                            <div class="input-group">
+                                <input type="search" name="q" class="form-control rounded-0 f-15" placeholder="搜索"
+                                       required=True>
+                                <div class="input-group-btn">
+                                    <button class="btn btn-info rounded-0" type="submit"><i
+                                            class="fa fa-search"></i></button>
+                                </div>
+                            </div><!-- /input-group -->
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <!--搜索框结束-->
+
+        </ul>
+    </div>
+    <br>
+    <div class="content">
+        <div class="glitch" style="position: fixed; ">
+            <div class="glitch__img"></div>
+            <div class="glitch__img"></div>
+            <div class="glitch__img"></div>
+            <div class="glitch__img"></div>
+            <div class="glitch__img"></div>
+        </div>
+
+
+    </div>
+    <div class="yusi-logo">
+        <a href="/">
+            <h1>
+
+            </h1>
+        </a>
+    </div>
+
+    <!--导航条-->
+          </br></br>
+
+    <!--导航条结束-->
+    <section class="container" >
+
+
+        <!--右侧内容区-->
+        {% block body %}{% endblock body %}
+        <!--左侧内容区结束-->
+        <!--右侧信息标签广告区-->
+        {% block right %}{% endblock %}
+
+    </section>
+
+    </br></br></br></br></br>
+    <!--网站底部-->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="copyright pull-left">
+                <a href="https://www.djangoproject.com/" title="Django" target="_blank">莫听穿林打叶声</a>
+                <a rel="nofollow" target="_blank" href="https://www.aliyun.com/" title="阿里云主机"
+                   target="_blank">何妨吟啸且徐行</a>
+            </div>
+
+        </div>
+    </footer>
+
+    <!--网站底部结束-->
+</div>

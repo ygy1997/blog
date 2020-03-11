@@ -1,0 +1,15 @@
+﻿{%extends 'base.html' %}
+{% load blog_tags %}
+{%block head%}
+<title>归元丨技术杂谈</title>
+{%endblock head%}
+
+{% block description %}
+    <meta name="description" content="{% get_title category as bigcategory %}{{ bigcategory.description }}"/>
+    {% endblock description %}
+    {% block keywords %}
+    <meta name="keywords" content="{% get_title category as bigcategory %}{{ bigcategory.keywords }}"/>
+    {% endblock keywords %}
+{%block body%}
+
+{%endblock body%}

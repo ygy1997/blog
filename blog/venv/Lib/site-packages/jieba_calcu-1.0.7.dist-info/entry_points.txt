@@ -1,0 +1,5 @@
+[console_scripts]
+command1 = advisorhelper.cmdline:execute
+command2 = adviserserver.create_algorithm:run
+command3 = adviserserver.run_algorithm:run
+

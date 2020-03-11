@@ -1,0 +1,20 @@
+Metadata-Version: 2.1
+Name: jieba-calcu
+Version: 1.0.7
+Summary: word discovery
+Home-page: UNKNOWN
+Author: QinHaiNing
+Author-email: qinhaining@ultrapower.com.cn
+License: UNKNOWN
+Keywords: command,line,tool
+Platform: UNKNOWN
+Requires-Dist: tqdm
+Requires-Dist: PyHamcrest
+Requires-Dist: twisted
+Requires-Dist: jieba
+Requires-Dist: numpy
+Requires-Dist: requests
+
+UNKNOWN
+
+

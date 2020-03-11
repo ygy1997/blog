@@ -1,0 +1,109 @@
+Metadata-Version: 2.1
+Name: timeline
+Version: 0.0.7
+Summary: Timeline module for modelling a series of actions.
+Home-page: https://launchpad.net/python-timeline
+Maintainer: Launchpad Developers
+Maintainer-email: launchpad-dev@lists.launchpad.net
+License: UNKNOWN
+Description: *************************************************
+        python-timeline: Modelling of a series of actions
+        *************************************************
+        
+            Copyright (c) 2011, Canonical Ltd
+        
+            This program is free software: you can redistribute it and/or modify
+            it under the terms of the GNU Lesser General Public License as published by
+            the Free Software Foundation, version 3 only.
+           
+            This program is distributed in the hope that it will be useful,
+            but WITHOUT ANY WARRANTY; without even the implied warranty of
+            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+            GNU Lesser General Public License for more details.
+           
+            You should have received a copy of the GNU Lesser General Public License
+            along with this program.  If not, see <http://www.gnu.org/licenses/>.
+          
+        The timeline package provides a way to model a series of actions. For instance,
+        during a web request the appserver might call out to a number of backend
+        services, make sql queries and memcached lookups. All of these actions can be
+        tracked in a single timeline, and that serialised or analysed for slow points.
+        
+        Dependencies
+        ============
+        
+        * Python 2.6+
+        
+        * pytz
+        
+        Testing Dependencies
+        ====================
+        
+        * subunit (http://pypi.python.org/pypi/python-subunit) (optional)
+        
+        * testtools (http://pypi.python.org/pypi/testtools)
+        
+        Usage
+        =====
+        
+        Create a timeline object:
+        
+         >>> from timeline.timeline import TimeLine
+         >>> log = TimeLine()
+        
+        Then add actions:
+        
+         >>> action = log.start('mycategory', 'mydetails')
+        
+        Perform your action and then tell the action it has finished:
+        
+         >>> action.finish()
+        
+        At this point you can start another action. If you wish to nest actions, pass
+        allow_nested=True to start().
+        
+        One of the things needed when working with timelines in complex applications is
+        locating the right one. Timeline provides a helper for WSGI apps:
+        
+         >>> from timeline import wsgi
+         >>> app = wsgi.make_app(inner_app)
+        
+        Calls to app will now inject a 'timeline.timeline' variable into the wsgi
+        environwhich can be used by inner_app to record actions.
+        
+        
+        Installation
+        ============
+        
+        Either run setup.py in an environment with all the dependencies available, or
+        add the working directory to your PYTHONPATH.
+        
+        
+        Development
+        ===========
+        
+        Upstream development takes place at https://launchpad.net/python-timeline.
+        To setup a working area for development, if the dependencies are not
+        immediately available, you can use ./bootstrap.py to create bin/buildout, then
+        bin/py to get a python interpreter with the dependencies available.
+        
+        To run the tests use the runner of your choice, the test suite is
+        timeline.tests.test_suite.
+        
+        For instance::
+        
+          $ bin/py -m testtools.run timeline.tests.test_suite
+        
+        If you have testrepository you can run the tests with testr::
+        
+          $ testr run
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 3
+Provides-Extra: test

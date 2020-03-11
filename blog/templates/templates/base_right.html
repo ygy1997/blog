@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load blog_tags static %}
+
+
+{% block right %}
+        <aside class="sidebar">
+
+
+
+</br>
+</br>
+
+
+            <!--广告位-->
+            <div class="widget widget_text">
+                <div class="textwidget">
+                    <a href="/"><img style="width:100%" src="{% static 'images/个人微信.jpg' %}"/></a>
+                </div>
+            </div>
+            <!--广告位结束-->
+            <div class="widget widget_archive">
+
+                <!--文章归档-->
+                <div class="title"><h2>文章归档</h2></div>
+                    {% get_data_date as data_date %}
+                    <ul>
+                        {% if data_date %}
+                            {% for date in data_date %}
+                                <li><a href='{% url 'blog:date' date|date:'Y' date|date:'m' %}'>{{ date|date:'Y-m' }}</a></li>
+                            {% endfor %}
+                        {% else %}
+                            <div>近期没有发表过文章</div>
+                        {% endif %}
+                    </ul>
+                </div>
+                <!--文章归档结束-->
+
+                <!--猜你喜欢-->
+                <div class="widget d_postlist">
+                    <div class="title"><h2>猜你喜欢</h2></div>
+                    <ul>
+                        {% get_article_list '-loves' 6 as hot_tag %}
+                        {% for hot in hot_tag %}
+                        <li>
+                            <a href="/article/{{ hot.slug }} " title="{{ hot.title }}"><span class="thumbnail"><img
+                                src="{{ hot.img_link }}" alt="{{ hot.title }}"/></span>
+                                <span class="text">{{ hot.title }}</span>
+                                <span class="muted">{{ hot.create_date|date:'Y-m-d' }}</span>
+                                <span class="muted">{{ hot.loves }}喜欢</span>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!--猜你喜欢结束-->
+
+            <!--标签云-->
+            <div class="widget d_tag">
+                <div class="title"><h2>标签云</h2></div>
+                <div class="d_tags">
+                    {% get_tag_list as tags %}
+                    {% for tag in tags %}
+                        <a title="{{ tag.total_num }}个话题" href="{% url 'blog:tag' tag.name %}">{{ tag.name }} ({{ tag.total_num }})</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <!--标签云结束-->
+
+
+
+
+        </aside>
+{% endblock right %}
